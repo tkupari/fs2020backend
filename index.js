@@ -7,7 +7,7 @@ app.use(express.static('build'))
 app.use(express.json())
 app.use(cors())
 
-morganFormat = (tokens, req, res) => {
+const morganFormat = (tokens, req, res) => {
   return [
     tokens.method(req, res),
     tokens.url(req, res),
