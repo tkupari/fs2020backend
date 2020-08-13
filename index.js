@@ -71,13 +71,11 @@ app.post('/api/persons', (req, res) => {
 })
 
 app.get('/api/persons/:id', (req, res) => {
-  const id = Number(req.params.id)
-  const person = persons.find(p => p.id === id)
-  if(person) {
+  Person.findById(req.params.id).then(person => {
     res.json(person)
-  } else {
+  }).catch(_err => {
     res.status(404).end()
-  }
+  })
 })
 
 app.delete('/api/persons/:id', (req, res) => {
