@@ -78,9 +78,14 @@ app.post('/api/persons', (req, res) => {
 
 app.get('/api/persons/:id', (req, res) => {
   Person.findById(req.params.id).then(person => {
-    res.json(person)
-  }).catch(_err => {
-    res.status(404).end()
+    if(person) {
+      res.json(person)
+    } else {
+      res.status(404).end()
+    }
+  }).catch(err => {
+    console.log(err)
+    res.status(500).end()
   })
 })
 
