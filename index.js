@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
@@ -19,6 +20,8 @@ const morganFormat = (tokens, req, res) => {
 }
 
 app.use(morgan(morganFormat))
+
+const Person = require('./models/person.js')
 
 let persons = [
   {
@@ -45,7 +48,9 @@ let persons = [
 
 
 app.get('/api/persons', (_req, res) => {
-  res.json(persons)
+  Person.find({}).then(persons => {
+    res.json(persons)
+  })
 })
 
 app.post('/api/persons', (req, res) => {
