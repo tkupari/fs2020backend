@@ -23,30 +23,6 @@ app.use(morgan(morganFormat))
 
 const Person = require('./models/person.js')
 
-let persons = [
-  {
-    "name": "Arto Hellas",
-    "number": "040-123456",
-    "id": 1
-  },
-  {
-    "name": "Ada Lovelace",
-    "number": "39-44-5323523",
-    "id": 2
-  },
-  {
-    "name": "Dan Abramov",
-    "number": "12-43-234345",
-    "id": 3
-  },
-  {
-    "name": "Mary Poppendieck",
-    "number": "39-23-6423122",
-    "id": 4
-  }
-]
-
-
 app.get('/api/persons', (_req, res) => {
   Person.find({}).then(persons => {
     res.json(persons)
@@ -109,7 +85,10 @@ app.delete('/api/persons/:id', (req, res, next) => {
 })
 
 app.get('/info', (_req, res) => {
-  res.send(`<p>Phonebook has info for ${persons.length} people</p>${new Date()}</p></p>`)
+   Person.count()
+    .then(count => {
+      res.send(`<p>Phonebook has info for ${count} people</p>${new Date()}</p></p>`)
+    })
 })
 
 const errorHandler = (error, _request, response, next) => {
