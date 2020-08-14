@@ -63,7 +63,7 @@ app.put('/api/persons/:id', (req, res, next) => {
   const person = {
     number: body.number
   }
-  Person.findByIdAndUpdate(req.params.id, person, {new: true, runValidators: true})
+  Person.findByIdAndUpdate(req.params.id, person, { new: true, runValidators: true })
     .then(updatedPerson => {
       if(updatedPerson)
         return res.json(updatedPerson)
@@ -74,13 +74,13 @@ app.put('/api/persons/:id', (req, res, next) => {
 
 app.delete('/api/persons/:id', (req, res, next) => {
   Person.findByIdAndDelete(req.params.id)
-    .then(_result => {
+    .then(() => {
       res.status(204).end()
     }).catch(err => next(err))
 })
 
 app.get('/info', (_req, res) => {
-   Person.count()
+  Person.count()
     .then(count => {
       res.send(`<p>Phonebook has info for ${count} people</p>${new Date()}</p></p>`)
     })
